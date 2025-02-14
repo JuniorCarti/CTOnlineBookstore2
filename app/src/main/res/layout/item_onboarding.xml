@@ -32,8 +32,8 @@
     <!-- Onboarding Image (Center) -->
     <ImageView
         android:id="@+id/image"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
+        android:layout_width="500dp"
+        android:layout_height="500dp"
         android:scaleType="fitCenter"
         android:src="@drawable/onboarding1"
         app:layout_constraintTop_toBottomOf="@id/counter"
@@ -67,7 +67,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Next Button (Bottom Left) -->
+    <!-- Next Button (Bottom Right) -->
     <TextView
         android:id="@+id/nextButton"
         android:layout_width="wrap_content"
@@ -79,6 +79,9 @@
         android:clickable="true"
         android:focusable="true"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
