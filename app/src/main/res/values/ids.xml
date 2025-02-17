@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="etEmail" type="id">etEmail</item>
+    <item name="etPassword" type="id">etPassword</item>
+    <item name="btnShowPassword" type="id">btnShowPassword</item>
+    <item name="etConfirmPassword" type="id">etConfirmPassword</item>
+    <item name="tvTerms" type="id">tvTerms</item>
+    <item name="btnCreateAccount" type="id">btnCreateAccount</item>
+    <item name="tvLogin" type="id">tvLogin</item>
+    <item name="tvTermsConditions" type="id">tvTermsConditions</item>
+</resources>

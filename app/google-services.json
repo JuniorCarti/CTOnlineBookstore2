@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "146880641383",
+    "project_id": "onlinebookstore-fc8cf",
+    "storage_bucket": "onlinebookstore-fc8cf.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:146880641383:android:85a5dad9e9669545d917c2",
+        "android_client_info": {
+          "package_name": "com.example.ctonlinebookstore"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9d-ESLLD8_fCNi6a-sck2Y73sur4fab8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
