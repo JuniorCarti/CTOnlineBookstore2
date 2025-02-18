@@ -35,8 +35,8 @@ public class WelcomeActivity extends AppCompatActivity {
         editor.putBoolean(KEY_WELCOME_COMPLETED, true);
         editor.apply();
 
-        // ✅ Go directly to MainActivity
-        startActivity(new Intent(this, MainActivity.class));
+        // ✅ Go to SignupActivity
+        startActivity(new Intent(this, SignUpActivity.class));
         finish(); // Close WelcomeActivity
     }
 }
