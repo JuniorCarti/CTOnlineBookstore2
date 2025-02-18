@@ -11,6 +11,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:text="Create an"
         android:textSize="26sp"
         android:textStyle="bold"
@@ -33,11 +34,31 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" Join us and manage your stationery business easily\!"
+            android:text=" Join us and manage your stationery business easily!"
             android:textSize="14sp"
             android:textColor="@android:color/darker_gray"
             android:layout_marginStart="20dp"/>
     </LinearLayout>
+
+    <!-- Full Name -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:boxCornerRadiusTopStart="12dp"
+        app:boxCornerRadiusBottomStart="12dp"
+        app:boxCornerRadiusTopEnd="12dp"
+        app:boxCornerRadiusBottomEnd="12dp"
+        android:hint="Full Name">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_account"
+            android:inputType="textPersonName"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <!-- Username / Email -->
     <com.google.android.material.textfield.TextInputLayout
@@ -83,7 +104,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Password should be at least 6 characters with 1 uppercase and 1 symbol e.g @#"
-        android:textSize="12sp"
+        android:textSize="10sp"
         android:textColor="@android:color/darker_gray"
         android:layout_marginTop="4dp"/>
 
@@ -111,13 +132,13 @@
         android:id="@+id/tvTermsConditions"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:textSize="15sp"
+        android:textSize="13sp"
+        android:layout_marginStart="18dp"
         android:text="By Signing up, you agree to our Terms And Conditions"
         android:layout_marginTop="10dp"
         android:textColor="@android:color/black"
         android:clickable="true"
         android:focusable="true"/>
-
 
     <!-- Create Account Button -->
     <com.google.android.material.button.MaterialButton
@@ -144,23 +165,29 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal"
         android:gravity="center">
 
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/ic_google"/>
+            android:layout_marginRight="10dp"
+            android:src="@drawable/ic_google"
+            android:contentDescription="Google Login"/>
 
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/ic_apple"/>
+            android:src="@drawable/ic_apple"
+            android:contentDescription="Apple Login"/>
 
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/ic_facebook"/>
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/ic_facebook"
+            android:contentDescription="Facebook Login"/>
     </LinearLayout>
 
     <!-- Already have an account -->

@@ -1,14 +1,13 @@
 package com.example.ctonlinebookstore;
 
-import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
-
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,23 +22,23 @@ import java.util.HashMap;
 import java.util.regex.Pattern;
 
 public class SignUpActivity extends AppCompatActivity {
-
-    private TextInputEditText etEmail, etPassword, etConfirmPassword;
+    private TextInputEditText etName, etEmail, etPassword, etConfirmPassword;
     private MaterialButton btnCreateAccount;
     private TextView tvLogin, tvTermsConditions;
     private FirebaseAuth mAuth;
     private DatabaseReference usersRef;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        // Initialize Firebase Auth and Database Reference
         mAuth = FirebaseAuth.getInstance();
         usersRef = FirebaseDatabase.getInstance().getReference("Users");
+        sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE);
 
-        // Bind Views
+        etName = findViewById(R.id.etName); // Name input field
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         etConfirmPassword = findViewById(R.id.etConfirmPassword);
@@ -47,24 +46,45 @@ public class SignUpActivity extends AppCompatActivity {
         tvLogin = findViewById(R.id.tvLogin);
         tvTermsConditions = findViewById(R.id.tvTermsConditions);
 
-        // Handle Create Account button click
+        // OnCreate Account button click
         btnCreateAccount.setOnClickListener(v -> registerUser());
 
-        // Handle Login TextView click
+        // When login button is clicked, navigate to LoginActivity
         tvLogin.setOnClickListener(v -> {
-            startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
-            finish();
+            Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+            startActivity(intent);
+            finish(); // Close SignUpActivity to avoid navigating back to it
         });
 
-        // Handle Terms & Conditions click
-        tvTermsConditions.setOnClickListener(v -> showTermsAndConditions());
+        // Navigate to Terms and Conditions
+        tvTermsConditions.setOnClickListener(v -> {
+            Intent intent = new Intent(SignUpActivity.this, TermsAndConditionsActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void registerUser() {
+        // Check if terms and conditions are accepted
+        boolean isTermsAccepted = sharedPreferences.getBoolean("TermsAccepted", false);
+        Log.d("RegisterUser", "Terms Accepted: " + isTermsAccepted);
+
+        if (!isTermsAccepted) {
+            Toast.makeText(this, "You must accept the Terms & Conditions", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String name = etName.getText().toString().trim();
         String email = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
         String confirmPassword = etConfirmPassword.getText().toString().trim();
 
+        // Validate name
+        if (TextUtils.isEmpty(name)) {
+            etName.setError("Name is required");
+            return;
+        }
+
+        // Validate email
         if (TextUtils.isEmpty(email)) {
             etEmail.setError("Email is required");
             return;
@@ -75,6 +95,7 @@ public class SignUpActivity extends AppCompatActivity {
             return;
         }
 
+        // Validate password
         if (TextUtils.isEmpty(password)) {
             etPassword.setError("Password is required");
             return;
@@ -85,68 +106,61 @@ public class SignUpActivity extends AppCompatActivity {
             return;
         }
 
+        // Validate confirm password
         if (!password.equals(confirmPassword)) {
             etConfirmPassword.setError("Passwords do not match");
             return;
         }
 
-        // Check if the email is already registered
-        mAuth.fetchSignInMethodsForEmail(email)
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful() && task.getResult().getSignInMethods() != null &&
-                            !task.getResult().getSignInMethods().isEmpty()) {
-                        Toast.makeText(SignUpActivity.this, "Email is already registered", Toast.LENGTH_SHORT).show();
-                    } else {
-                        // Register user in Firebase
-                        createFirebaseUser(email, password);
-                    }
-                });
-    }
-
-    private void createFirebaseUser(String email, String password) {
+        // Create user with Firebase Authentication
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         FirebaseUser firebaseUser = mAuth.getCurrentUser();
                         if (firebaseUser != null) {
-                            saveUserToDatabase(firebaseUser.getUid(), email);
+                            // Save user data in Realtime Database
+                            saveUserToDatabase(firebaseUser.getUid(), email, name);
                         }
                     } else {
-                        Toast.makeText(SignUpActivity.this, "Registration failed: " + task.getException().getMessage(),
+                        String errorMessage = task.getException() != null ? task.getException().getMessage() : "Unknown error";
+                        Log.e("FirebaseAuthError", errorMessage);
+                        Toast.makeText(SignUpActivity.this, "Registration failed: " + errorMessage,
                                 Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
-    private void saveUserToDatabase(String userId, String email) {
+    private void saveUserToDatabase(String userId, String email, String name) {
+        // Prepare user data for saving in Realtime Database
         HashMap<String, Object> userMap = new HashMap<>();
         userMap.put("userId", userId);
         userMap.put("email", email);
+        userMap.put("name", name);  // Save the name as well
         userMap.put("createdAt", System.currentTimeMillis());
 
+        // Save user data in Realtime Database
         usersRef.child(userId).setValue(userMap)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         Toast.makeText(SignUpActivity.this, "Account created successfully", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(SignUpActivity.this, MainActivity.class));
-                        finish();
+                        navigateToMainActivity();
                     } else {
-                        Toast.makeText(SignUpActivity.this, "Database error: " + task.getException().getMessage(),
+                        String errorMessage = task.getException() != null ? task.getException().getMessage() : "Unknown error";
+                        Log.e("DatabaseError", errorMessage);
+                        Toast.makeText(SignUpActivity.this, "Database error: " + errorMessage,
                                 Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    private void navigateToMainActivity() {
+        Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish(); // Close SignUpActivity to prevent back navigation
     }
 
     private boolean isValidPassword(String password) {
         Pattern passwordPattern = Pattern.compile("^(?=.*[A-Z])(?=.*[@#$%^&+=]).{6,}$");
         return passwordPattern.matcher(password).matches();
-    }
-
-    private void showTermsAndConditions() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Terms and Conditions")
-                .setMessage("By using this application, you agree to our Terms and Conditions...")
-                .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
-                .show();
     }
 }

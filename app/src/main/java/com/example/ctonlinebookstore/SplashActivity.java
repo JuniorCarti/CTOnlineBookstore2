@@ -17,7 +17,7 @@ public class SplashActivity extends AppCompatActivity {
     private static final String KEY_IS_LOGGED_IN = "IsLoggedIn";
     private static final String KEY_LAST_ACTIVE_TIME = "LastActiveTime";
 
-    private static final long SESSION_TIMEOUT = 30 * 60 * 1000; // 30 minutes
+    private static final long SESSION_TIMEOUT = 5 * 60 * 1000; // 5 minutes (in milliseconds)
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,6 +26,8 @@ public class SplashActivity extends AppCompatActivity {
 
         new Handler().postDelayed(() -> {
             SharedPreferences prefs = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+
+            // Retrieve saved preferences
             boolean hasCompletedOnboarding = prefs.getBoolean(KEY_ONBOARDING_COMPLETED, false);
             boolean hasCompletedWelcome = prefs.getBoolean(KEY_WELCOME_COMPLETED, false);
             boolean isLoggedIn = prefs.getBoolean(KEY_IS_LOGGED_IN, false);
@@ -34,6 +36,7 @@ public class SplashActivity extends AppCompatActivity {
 
             Intent intent;
 
+            // Splash screen logic
             if (!hasCompletedOnboarding) {
                 intent = new Intent(SplashActivity.this, OnboardingActivity.class);
             } else if (!hasCompletedWelcome) {
@@ -41,7 +44,7 @@ public class SplashActivity extends AppCompatActivity {
             } else if (!isLoggedIn) {
                 intent = new Intent(SplashActivity.this, SignUpActivity.class);
             } else if (currentTime - lastActiveTime > SESSION_TIMEOUT) {
-                // If session is expired, log the user out
+                // Session expired, log user out and go to LoginActivity
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putBoolean(KEY_IS_LOGGED_IN, false);
                 editor.apply();
@@ -50,8 +53,9 @@ public class SplashActivity extends AppCompatActivity {
                 intent = new Intent(SplashActivity.this, MainActivity.class);
             }
 
+            // Start the determined activity
             startActivity(intent);
-            finish();
+            finish();  // Close SplashActivity
         }, SPLASH_DELAY);
     }
 }

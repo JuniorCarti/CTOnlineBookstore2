@@ -8,4 +8,11 @@
     <item name="btnCreateAccount" type="id"/>
     <item name="tvLogin" type="id"/>
     <item name="tvTermsConditions" type="id"/>
+    <item name="tvSignUpOption" type="id"/>
+    <item name="btnLoginSubmit" type="id"/>
+    <item name="tvResetPassword" type="id"/>
+    <item name="etLoginPassword" type="id"/>
+    <item name="etLoginEmail" type="id"/>
+    <item name="greetingTextView" type="id"/>
+    <item name="lottieAnimationView" type="id"/>
 </resources>
