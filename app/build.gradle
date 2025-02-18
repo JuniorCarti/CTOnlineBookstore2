@@ -53,6 +53,15 @@ dependencies {
         implementation libs.firebase.firestore  // Firestore
         implementation libs.firebase.storage  // Storage
            implementation libs.lottie //animation
+        // Retrofit
+        implementation libs.retrofit
+        implementation libs.converter.gson
+        implementation libs.logging.interceptor
+
+        // Gson (for parsing JSON responses)
+        implementation libs.gson
+
+
 
 
 
