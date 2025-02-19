@@ -17,7 +17,7 @@ public class SplashActivity extends AppCompatActivity {
     private static final String KEY_IS_LOGGED_IN = "IsLoggedIn";
     private static final String KEY_LAST_ACTIVE_TIME = "LastActiveTime";
 
-    private static final long SESSION_TIMEOUT = 5 * 60 * 1000; // 5 minutes (in milliseconds)
+    private static final long SESSION_TIMEOUT = 60 * 1000; // 1 minute (60,000 milliseconds)
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,7 +44,7 @@ public class SplashActivity extends AppCompatActivity {
             } else if (!isLoggedIn) {
                 intent = new Intent(SplashActivity.this, SignUpActivity.class);
             } else if (currentTime - lastActiveTime > SESSION_TIMEOUT) {
-                // Session expired, log user out and go to LoginActivity
+                // Session expired (more than 1 minute of inactivity), log user out and go to LoginActivity
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putBoolean(KEY_IS_LOGGED_IN, false);
                 editor.apply();

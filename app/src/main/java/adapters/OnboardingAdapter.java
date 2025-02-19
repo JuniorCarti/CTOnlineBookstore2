@@ -1,7 +1,5 @@
 package adapters;
 
-
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,39 +7,40 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.ctonlinebookstore.OnboardingActivity;
 import com.example.ctonlinebookstore.R;
 import java.util.List;
-
 import models.OnboardingItem;
 
 public class OnboardingAdapter extends RecyclerView.Adapter<OnboardingAdapter.ViewHolder> {
-    private final Context context;
-    private final List<models.OnboardingItem> onboardingItems;
+    private final List<OnboardingItem> onboardingItems;
+    private final OnboardingNavigationListener navigationListener;
 
-    public OnboardingAdapter(Context context, List<models.OnboardingItem> onboardingItems) {
-        this.context = context;
+    // 🔹 Constructor
+    public OnboardingAdapter(List<OnboardingItem> onboardingItems, OnboardingNavigationListener navigationListener) {
         this.onboardingItems = onboardingItems;
+        this.navigationListener = navigationListener;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_onboarding, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_onboarding, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        models.OnboardingItem item = onboardingItems.get(position);
+        OnboardingItem item = onboardingItems.get(position);
+
+        // 🔹 Set values dynamically
         holder.counter.setText(item.getCounterText());
         holder.image.setImageResource(item.getImageRes());
         holder.title.setText(item.getTitle());
         holder.subtitle.setText(item.getSubtitle());
 
-        holder.skipButton.setOnClickListener(v -> ((OnboardingActivity) context).skipOnboarding(v));
-        holder.nextButton.setOnClickListener(v -> ((OnboardingActivity) context).nextScreen(v));
+        // 🔹 Handle button clicks using interface
+        holder.skipButton.setOnClickListener(v -> navigationListener.onSkip());
+        holder.nextButton.setOnClickListener(v -> navigationListener.onNext(position));
     }
 
     @Override
@@ -49,6 +48,7 @@ public class OnboardingAdapter extends RecyclerView.Adapter<OnboardingAdapter.Vi
         return onboardingItems.size();
     }
 
+    // 🔹 ViewHolder class
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView counter, title, subtitle, skipButton, nextButton;
         ImageView image;
@@ -62,5 +62,11 @@ public class OnboardingAdapter extends RecyclerView.Adapter<OnboardingAdapter.Vi
             skipButton = itemView.findViewById(R.id.skipButton);
             nextButton = itemView.findViewById(R.id.nextButton);
         }
+    }
+
+    // 🔹 Interface for handling navigation actions
+    public interface OnboardingNavigationListener {
+        void onSkip();
+        void onNext(int position);
     }
 }

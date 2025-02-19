@@ -3,7 +3,6 @@ package com.example.ctonlinebookstore;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 import java.util.ArrayList;
@@ -12,7 +11,7 @@ import java.util.List;
 import adapters.OnboardingAdapter;
 import models.OnboardingItem;
 
-public class OnboardingActivity extends AppCompatActivity {
+public class OnboardingActivity extends AppCompatActivity implements OnboardingAdapter.OnboardingNavigationListener {
     private static final String PREF_NAME = "OnboardingPrefs";
     private static final String KEY_ONBOARDING_COMPLETED = "OnboardingCompleted";
 
@@ -22,11 +21,19 @@ public class OnboardingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_onboarding);
 
+        // 🔹 Check if onboarding was already completed
+        if (isOnboardingCompleted()) {
+            navigateToWelcome();
+            return;
+        }
+
+        setContentView(R.layout.activity_onboarding);
         viewPager = findViewById(R.id.viewPager);
         onboardingItems = getOnboardingData();
-        OnboardingAdapter adapter = new OnboardingAdapter(this, onboardingItems);
+
+        // 🔹 Use improved adapter with navigation listener
+        OnboardingAdapter adapter = new OnboardingAdapter(onboardingItems, this);
         viewPager.setAdapter(adapter);
     }
 
@@ -41,13 +48,15 @@ public class OnboardingActivity extends AppCompatActivity {
         return items;
     }
 
-    public void skipOnboarding(View view) {
+    @Override
+    public void onSkip() {
         completeOnboarding();
     }
 
-    public void nextScreen(View view) {
-        if (viewPager != null && viewPager.getCurrentItem() < onboardingItems.size() - 1) {
-            viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+    @Override
+    public void onNext(int position) {
+        if (position < onboardingItems.size() - 1) {
+            viewPager.setCurrentItem(position + 1, true); // 🔹 Smooth transition
         } else {
             completeOnboarding();
         }
@@ -58,9 +67,16 @@ public class OnboardingActivity extends AppCompatActivity {
                 .edit()
                 .putBoolean(KEY_ONBOARDING_COMPLETED, true)
                 .apply();
+        navigateToWelcome();
+    }
 
-        // ✅ Go to WelcomeActivity instead of MainActivity
+    private void navigateToWelcome() {
         startActivity(new Intent(this, WelcomeActivity.class));
         finish();
+    }
+
+    private boolean isOnboardingCompleted() {
+        SharedPreferences preferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        return preferences.getBoolean(KEY_ONBOARDING_COMPLETED, false);
     }
 }

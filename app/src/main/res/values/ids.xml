@@ -15,4 +15,6 @@
     <item name="etLoginEmail" type="id"/>
     <item name="greetingTextView" type="id"/>
     <item name="lottieAnimationView" type="id"/>
+    <item name="viewPager" type="id"/>
+    <item name="dotsIndicator" type="id"/>
 </resources>

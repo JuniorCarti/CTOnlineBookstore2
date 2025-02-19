@@ -3,6 +3,13 @@
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="button_yellow">#F7B305</color> <!-- Muted Yellow -->
+    <color name="gray">#808080</color>
+    <color name="primary">#FF6200EE</color> <!-- Change this to your desired primary color -->
+    <color name="colorPrimary">@color/button_yellow</color> <!-- Change this to match your app theme -->
+    <color name="nav_item_default">#757575</color> <!-- Grey color for unselected items -->
+
+
+
 
 
 </resources>
