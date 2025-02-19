@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "146880641383",
+    "firebase_url": "https://onlinebookstore-fc8cf-default-rtdb.firebaseio.com",
+    "project_id": "onlinebookstore-fc8cf",
+    "storage_bucket": "onlinebookstore-fc8cf.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:146880641383:android:85a5dad9e9669545d917c2",
+        "android_client_info": {
+          "package_name": "com.example.ctonlinebookstore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "146880641383-rcl2jt17kjg5fg6ro9s9c0lf09udsbg4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ctonlinebookstore",
+            "certificate_hash": "b3b1834053cb7e24632fafa2572561a3b1269265"
+          }
+        },
+        {
+          "client_id": "146880641383-bcapjmv4pre0pa4ch0jvt84ot8d4klq3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9d-ESLLD8_fCNi6a-sck2Y73sur4fab8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "146880641383-bcapjmv4pre0pa4ch0jvt84ot8d4klq3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

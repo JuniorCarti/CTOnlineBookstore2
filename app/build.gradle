@@ -64,6 +64,14 @@ dependencies {
     implementation 'com.tbuonomo:dotsindicator:4.3'
 
 
+    // Google Sign-In
+    implementation libs.play.services.auth
+
+    implementation libs.facebook.login  //facebook login
+
+
+
+
 
     // Gson (for parsing JSON responses)
         implementation libs.gson

@@ -92,7 +92,7 @@
                         android:id="@+id/etSearch"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:hint="Search any product"
+                        android:hint="Search Products, Brands and Categories"
                         android:textSize="14sp"
                         android:background="@null"
                         android:paddingStart="40dp"

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -58,7 +59,6 @@
             android:drawableStart="@drawable/ic_account"
             android:inputType="textPersonName"/>
     </com.google.android.material.textfield.TextInputLayout>
-
 
     <!-- Username / Email -->
     <com.google.android.material.textfield.TextInputLayout
@@ -169,25 +169,41 @@
         android:orientation="horizontal"
         android:gravity="center">
 
+        <!-- Google Login Button -->
         <ImageView
+            android:id="@+id/ivGoogleLogin"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginRight="10dp"
             android:src="@drawable/ic_google"
-            android:contentDescription="Google Login"/>
+            android:contentDescription="Google Login"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:onClick="onGoogleLoginClicked"/>
 
+        <!-- Apple Login Button -->
         <ImageView
+            android:id="@+id/ivAppleLogin"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/ic_apple"
-            android:contentDescription="Apple Login"/>
+            android:contentDescription="Apple Login"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"/>
 
+        <!-- Facebook Login Button -->
         <ImageView
+            android:id="@+id/ivFacebookLogin"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginLeft="10dp"
             android:src="@drawable/ic_facebook"
-            android:contentDescription="Facebook Login"/>
+            android:contentDescription="Facebook Login"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackgroundBorderless"/>
     </LinearLayout>
 
     <!-- Already have an account -->

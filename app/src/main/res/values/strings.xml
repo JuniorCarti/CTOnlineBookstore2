@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">CT Online Bookstore</string>
+    <string name="default_web_client_id">"146880641383-bcapjmv4pre0pa4ch0jvt84ot8d4klq3.apps.googleusercontent.com"</string>
+    <string name="facebook_app_id">facebook_app_id</string>
+    <string name="fb_login_protocol_scheme">fbYOUR_FACEBOOK_APP_ID</string>
+
 </resources>
