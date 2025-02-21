@@ -31,13 +31,8 @@ android {
 }
 
 dependencies {
-        implementation libs.firebase.auth  //firebase authentication
-        implementation libs.material.v1110  //material buttons
-
-    //loading images picasso glide
-        implementation libs.glide
-        annotationProcessor libs.compiler
-
+        implementation libs.firebase.auth
+        implementation libs.material.v1110
 
     implementation libs.appcompat
     implementation libs.material
@@ -58,11 +53,7 @@ dependencies {
         implementation libs.firebase.firestore  // Firestore
         implementation libs.firebase.storage  // Storage
            implementation libs.lottie //animation
-
-
-
-
-    // Retrofit
+        // Retrofit
         implementation libs.retrofit
         implementation libs.converter.gson
         implementation libs.logging.interceptor
@@ -77,11 +68,6 @@ dependencies {
     implementation libs.play.services.auth
 
     implementation libs.facebook.login  //facebook login
-
-    //recycler views
-        implementation libs.recyclerview
-
-
 
 
 

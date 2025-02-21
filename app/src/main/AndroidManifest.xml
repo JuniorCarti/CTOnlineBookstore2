@@ -12,26 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CTOnlineBookstore"
         tools:targetApi="31">
-        <activity
-            android:name=".ProductDetailsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SettingsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SearchActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CartActivity"
-            android:exported="false" />
-        <activity
-            android:name=".WishlistActivity"
-            android:exported="false" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id" />
-
+            android:value="@string/facebook_app_id"/>
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
@@ -42,15 +26,13 @@
             tools:ignore="MissingClass">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:scheme="@string/fb_login_protocol_scheme"
+                <data android:scheme="@string/fb_login_protocol_scheme"
                     tools:ignore="AppLinkUrlError" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ResetPasswordActivity"
             android:exported="false" />
